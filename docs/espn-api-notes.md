@@ -1,11 +1,9 @@
 # ESPN API Notes
 
 ## Full ESPN request URL
-
 https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/2026/segments/0/leagues/1380768854?rosterForTeamId=8&view=mDraftDetail&view=mLiveScoring&view=mMatchupScore&view=mPendingTransactions&view=mPositionalRatings&view=mRoster&view=mSettings&view=mTeam&view=modular&view=mNav&platformVersion=7411ee0540f4d3fa37ae9b9b557490bbb512f9d8
 
 ## URL broken up
-
 | Part | Value | Changes? |
 | --- | --- | --- |
 | Host | `lm-api-reads.fantasy.espn.com` | No |
@@ -21,3 +19,16 @@ https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/2026/segments/0/
 
 ## Views to verify
 -mTeam -mRoster -mMatchupScore -mSettings
+
+## Response keys (verified 2026-10-15, public league 2127)
+
+Base keys (every view): `draftDetail`, `gameId`, `id`, `scoringPeriodId`, `seasonId`, `segmentId`, `status`
+
+| View | Added keys |
+| --- | --- |
+| `mTeam` | `members`, `teams` |
+| `mRoster` | `teams` |
+| `mMatchupScore` | `schedule` |
+| `mSettings` | `settings` |
+
+Note that mTeam and mRoster both share the added key "teams", we will need to check the contents of each key eventually
