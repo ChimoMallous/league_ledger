@@ -20,9 +20,22 @@ https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/2026/segments/0/
 ## Views to verify
 -mTeam -mRoster -mMatchupScore -mSettings
 
-## Response keys (verified 2026-10-15, public league 2127)
+## Response keys by view (verified 2026-10-15, public league 2127)
 
-Base keys (every view): `draftDetail`, `gameId`, `id`, `scoringPeriodId`, `seasonId`, `segmentId`, `status`
+### mTeam
+`draftDetail`, `gameId`, `id`, `members`, `scoringPeriodId`, `seasonId`, `segmentId`, `status`, `teams`
+
+### mRoster
+`draftDetail`, `gameId`, `id`, `scoringPeriodId`, `seasonId`, `segmentId`, `status`, `teams`
+
+### mMatchupScore
+`draftDetail`, `gameId`, `id`, `schedule`, `scoringPeriodId`, `seasonId`, `segmentId`, `status`
+
+### mSettings
+`draftDetail`, `gameId`, `id`, `scoringPeriodId`, `seasonId`, `segmentId`, `settings`, `status`
+
+### Base keys (every view) 
+`draftDetail`, `gameId`, `id`, `scoringPeriodId`, `seasonId`, `segmentId`, `status`
 
 | View | Added keys |
 | --- | --- |
@@ -31,4 +44,25 @@ Base keys (every view): `draftDetail`, `gameId`, `id`, `scoringPeriodId`, `seaso
 | `mMatchupScore` | `schedule` |
 | `mSettings` | `settings` |
 
-Note that mTeam and mRoster both share the added key "teams", we will need to check the contents of each key eventually
+Note that `mTeam` and `mRoster` both return `teams`, but only `id` matches: `mTeam` has the season record (name, owners, W/L, points, rank), `mRoster` has only the 15-player roster and each player's points.
+
+### mRoster is weekly
+Rosters change during a season, so one request gives one week, not a season. With no
+`scoringPeriodId` you get the latest week. Pass it to pick one:
+
+    ?view=mRoster&scoringPeriodId=5 (will return for week 5)
+
+A full season is a loop over weeks 1-17, so about 17 requests. Only bench points needs this.
+Standings, champions, records, and head-to-head all come from mTeam and mMatchupScore.
+
+Note that `appliedStatTotal` is that week's points, but `player.stats` also carries season
+totals under `scoringPeriodId: 0`.
+
+### Field notes
+`lineupSlotId` is where a player sat that week. 20 = bench, 23 = flex.
+
+`playoffTierType` is NONE, WINNERS_BRACKET, LOSERS_CONSOLATION_LADDER, or
+WINNERS_CONSOLATION_LADDER, so `!= "NONE"` counts consolation games as playoffs.
+
+`winner` is HOME, AWAY, or UNDECIDED. The 2025 fixture has no UNDECIDED because that season
+finished. Need a 2026 fixture to cover it.
