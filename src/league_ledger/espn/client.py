@@ -1,22 +1,27 @@
 import httpx
 
-
 BASE_URL = "https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl"
+
 
 class ESPNError(Exception):
     pass
 
+
 class LeagueNotFound(ESPNError):
     pass
 
+
 class LeagueIsPrivate(ESPNError):
     pass
+
 
 class ESPNUnavailable(ESPNError):
     pass
 
 
-def fetch_season(league_id: int, season: int, views: list[str], cookies: dict[str, str] | None = None) -> dict:
+def fetch_season(
+    league_id: int, season: int, views: list[str], cookies: dict[str, str] | None = None
+) -> dict:
     url = f"{BASE_URL}/seasons/{season}/segments/0/leagues/{league_id}"
     try:
         response = httpx.get(url, params={"view": views}, cookies=cookies, timeout=10)

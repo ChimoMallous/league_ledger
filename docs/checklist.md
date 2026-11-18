@@ -18,14 +18,20 @@ Steps match the build order in `design-doc.md`. Finish a step before starting th
 
 ## 2. Extract: `espn/client.py`
 
-- [ ] Add error classes: `ESPNError`, `LeagueNotFound`, `LeagueIsPrivate`, `ESPNUnavailable`
-- [ ] Write `fetch_season(league_id, season, views, cookies=None)`
-- [ ] Send repeated `view` params
-- [ ] Set a timeout
-- [ ] Raise on 401, 403, 404, 5xx, timeouts, and bad JSON
-- [ ] Test each case with `httpx.MockTransport`
+- [x] Add error classes: `ESPNError`, `LeagueNotFound`, `LeagueIsPrivate`, `ESPNUnavailable`
+- [x] Write `fetch_season(league_id, season, views, cookies=None)`
+- [x] Send repeated `view` params
+- [x] Set a timeout
+- [x] Raise on 401, 403, 404, 5xx, timeouts, and bad JSON
+- [x] Choose how tests fake HTTP: `monkeypatch` (add a client parameter later only if step 6 needs connection reuse)
+- [ ] Test: 200 returns JSON and sends the right URL and `view` params
+- [ ] Test: 404 raises `LeagueNotFound`
+- [ ] Test: 401 and 403 raise `LeagueIsPrivate`
+- [ ] Test: 500 raises `ESPNUnavailable`
+- [ ] Test: network error raises `ESPNUnavailable`
+- [ ] Test: invalid JSON raises `ESPNUnavailable`
 
-**Done when:** a good season returns JSON and a bad one raises the right error.
+**Done when:** all tests pass offline and ruff is clean.
 
 ## 3. Transform: `espn/parse.py`
 
@@ -72,10 +78,43 @@ Steps match the build order in `design-doc.md`. Finish a step before starting th
 
 **Done when:** bench points match ESPN for a known week.
 
-## 7. Polish
+## 7. CI
 
-- [ ] README
-- [ ] CI
-- [ ] Error messages name the season that failed
-- [ ] App Dockerfile
-- [ ] Hosting
+- [ ] GitHub Actions: ruff and pytest on every push
+- [ ] Postgres service container (once step 4 exists)
+
+## 8. Config and secrets
+
+- [ ] Settings from environment variables
+- [ ] `.env.example` committed
+
+## 9. Logging
+
+- [ ] `logging` set up, no `print` in `src/`
+- [ ] Failed seasons logged with the reason
+
+## 10. Deploy
+
+- [ ] Postgres on Neon
+- [ ] API on Render or Fly.io
+- [ ] Live URL in README
+
+## 11. Scheduled sync
+
+- [ ] One endpoint or CLI command a scheduler can trigger
+
+## 12. Recap endpoint
+
+- [ ] SQL for one week's stats
+- [ ] One LLM call with only that data
+- [ ] Reject recaps with numbers that don't match the database
+- [ ] Offseason recaps: season-in-review, rivalries
+
+## 13. Delivery with Make.com
+
+- [ ] Weekly scenario: call the recap endpoint, post to the league chat
+- [ ] Prototype before March 11, 2027
+
+## 14. README
+
+- [ ] Real usage metric
