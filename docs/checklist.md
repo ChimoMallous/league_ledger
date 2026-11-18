@@ -24,12 +24,12 @@ Steps match the build order in `design-doc.md`. Finish a step before starting th
 - [x] Set a timeout
 - [x] Raise on 401, 403, 404, 5xx, timeouts, and bad JSON
 - [x] Choose how tests fake HTTP: `monkeypatch` (add a client parameter later only if step 6 needs connection reuse)
-- [ ] Test: 200 returns JSON and sends the right URL and `view` params
-- [ ] Test: 404 raises `LeagueNotFound`
-- [ ] Test: 401 and 403 raise `LeagueIsPrivate`
-- [ ] Test: 500 raises `ESPNUnavailable`
-- [ ] Test: network error raises `ESPNUnavailable`
-- [ ] Test: invalid JSON raises `ESPNUnavailable`
+- [x] Test: 200 returns JSON
+- [x] Test: 404 raises `LeagueNotFound`
+- [x] Test: 401 and 403 raise `LeagueIsPrivate`
+- [x] Test: 500 raises `ESPNUnavailable`
+- [x] Test: network error raises `ESPNUnavailable`
+- [x] Test: invalid JSON raises `ESPNUnavailable`
 
 **Done when:** all tests pass offline and ruff is clean.
 

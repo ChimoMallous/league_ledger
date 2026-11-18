@@ -1,8 +1,7 @@
-import httpx
-import json 
-
+import json
 from pathlib import Path
 
+import httpx
 
 TEST_LEAGUE_ID = 2127
 TEST_SEASON = 2025
@@ -38,7 +37,9 @@ if __name__ == "__main__":
             file_path = target_dir / f"{TEST_SEASON}_{view}.json"
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(league_data, f, ensure_ascii=False, indent=2)
-            print(f"League Data Successfully Retrieved for {view}\nAvailable Keys for {view}: {league_data.keys()}")
+            print(
+                f"League Data Successfully Retrieved for {view}\nAvailable Keys for {view}: {league_data.keys()}"
+            )
         else:
             print("Error")
 
