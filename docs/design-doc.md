@@ -105,6 +105,7 @@ ESPN cookies come in as request headers on `POST /sync`, or from environment var
 | Data access | Raw SQL with psycopg | The SQL is the point of the project |
 | Migrations | None yet, one `schema.sql` | Dev data can just be re-synced |
 | ESPN access | httpx, not `espn_api` | Parsing the JSON is the real work |
+| Ties | Not stored | Decimal scoring makes ties near-impossible; revisit for whole-number leagues |
 | Sync | On demand, plus one trigger a scheduler can call | History doesn't need a scheduler; weekly recaps need fresh data |
 | Config | Environment variables (python-dotenv, or pydantic-settings if typed config is worth it) | Standard, works the same locally and in production |
 | Hosting | Render or Fly.io, Postgres on Neon | Free tiers, real deployment |
