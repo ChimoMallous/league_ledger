@@ -80,7 +80,7 @@ Steps match the build order in `design-doc.md`. Finish a step before starting th
 
 ## 7. CI
 
-- [ ] GitHub Actions: ruff and pytest on every push
+- [x] GitHub Actions: ruff and pytest on every push
 - [ ] Postgres service container (once step 4 exists)
 
 ## 8. Config and secrets

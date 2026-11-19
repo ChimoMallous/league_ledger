@@ -12,7 +12,7 @@ Out of scope: a frontend, user accounts, writing to ESPN, other sports, an ORM o
 
 ## Status
 
-Nov 18, 2026 — step 2 done: `espn/client.py` and its tests (7, offline). Next: step 3, `espn/parse.py`.
+Nov 18, 2026 — step 2 done, CI green on every push (M4). Next: step 3, `espn/parse.py`.
 
 Timeline: phases 1 and 2 by summer 2027, phase 3 live for the 2027 NFL season.
 
